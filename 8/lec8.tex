@@ -1,0 +1,153 @@
+\documentclass[10pt]{beamer}
+
+% \usepackage{define}
+\usepackage{animate}
+
+\usetheme{CCFD}
+\usepackage{color}
+\definecolor{gray97}{gray}{.90}
+\definecolor{gray75}{gray}{.75}
+\usepackage{listings}
+\lstset{frame=Ltb,
+     framerule=0pt,
+     aboveskip=0cm,
+     framextopmargin=0pt,
+     framexbottommargin=0pt,
+     framexleftmargin=0cm,
+     framesep=0pt,
+     rulesep=0pt,
+     backgroundcolor=\color{gray97},
+     rulesepcolor=\color{black},
+     language=C,
+           basicstyle=\ttfamily\scriptsize,
+           keywordstyle=\color{blue}\ttfamily,
+           stringstyle=\color{red}\ttfamily,
+           commentstyle=\color{green}\ttfamily,
+          breaklines=true,
+          }
+\lstdefinestyle{consol}
+   {basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+}
+\resetcounteronoverlays{lstnumber}
+
+\newcommand{\tabitem}{%
+  \usebeamertemplate{itemize item}\hspace*{\labelsep}}
+
+\usepackage{tikz}
+\usetikzlibrary{calc,shapes,arrows.meta}
+
+\eventtitle{Computer Science I}
+\title{Lecture 8\\1D Arrays\\{\tiny and other disasters}}
+\date{}
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{navigation symbols}[]
+
+\begin{document}
+
+\frame{
+    \titlepage
+}
+
+\section{Today}
+\begin{frame}
+  \frametitle{Today}
+  \framesubtitle{}
+  
+  Today:
+  \begin{itemize}
+		\item File I/O - continue
+		\item A program that preperas points for plotting a function
+		\item A program that reads data from a file, and manipulates them.
+		\item A program that generates random numbers and stores them in a file.
+		\item A program that reads a file, and calculates an average
+		\item A program that reads a file, sorts it and stores back
+  \end{itemize}
+\end{frame}
+
+\section{Files}
+
+\begin{frame}[fragile]
+  \frametitle{Files}
+FILE structure to handle files:
+\begin{lstlisting}
+FILE *fp;
+\end{lstlisting}
+
+To open a file use \textit{fopen()}:
+\begin{lstlisting}
+FILE *fopen(const char *filename, const char *mode);
+//e.g.:
+fp=fopen("c:\\test.txt", "r");
+\end{lstlisting}
+
+To close a file use \textit{fclose()}:
+\begin{lstlisting}
+int fclose(FILE *a_file);
+//e.g.:
+fclose(fp);
+\end{lstlisting}
+ 
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Files}
+  \framesubtitle{fopen modes}
+  Depending on what we require the file to:
+\begin{itemize}
+	\item r  - open for reading
+	\item w  - open for writing (file need not exist)
+	\item a  - open for appending (file need not exist)
+	\item r+ - open for reading and writing, start at beginning
+	\item w+ - open for reading and writing (overwrite file)
+	\item a+ - open for reading and writing (append if file exists)
+\end{itemize}
+
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Files}
+  \framesubtitle{Reading and writing with fprintf, fscanf}
+Printing to file:
+\begin{lstlisting}
+FILE *fp;
+fp=fopen("c:\\test.txt", "w");
+fprintf(fp, "Testing...\n");
+
+...
+fclose(fp);
+\end{lstlisting}
+
+Reading from file:
+\begin{lstlisting}
+FILE *fp;
+fp=fopen("c:\\test.txt", "w");
+int a;
+fcanf(fp, "%d", &a);
+...
+fclose(fp);
+\end{lstlisting}
+ 
+\end{frame}
+
+\subsection{Examples}
+
+\begin{frame}
+  Use static arrays only.
+  \frametitle{Examples}
+  \begin{enumerate}
+  \item Write a program that writes to a file coordinates to plot $f(x)=sin(x)$
+for a range $<0,2\pi>$
+  \item Write program that reads points coordinates from a file and decides if those are in a circle of radius 1.
+  \item Write a program that generates N random numbers and stores them to a file.
+  \item Write a program that reads a data file, calculates an average value and finds the number of elements above, and below that average.
+  \item Write a program that reads values from a file, sorts them and stores them to a new file.
+  \item Example test questions
+\end{enumerate}
+  
+\end{frame}
+
+\end{document}

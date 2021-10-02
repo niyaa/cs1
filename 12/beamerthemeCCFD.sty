@@ -1,0 +1,232 @@
+\ProvidesPackageRCS $Header: /cvsroot/latex-beamer/latex-beamer/themes/theme/beamerthemeAntibes.sty,v 1.9 2004/10/07 20:53:10 tantau Exp $
+
+% Copyright 2003 by Till Tantau <tantau@users.sourceforge.net>
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+\usepgfmodule{shapes}
+\usepackage{pgfbaseshapes}
+\usepackage{calc}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{engord}
+
+
+\usetikzlibrary{%
+  arrows,%
+  shapes,%
+  chains,%
+  matrix,%
+  positioning,% wg. " of "
+  scopes,%
+  decorations.pathmorphing,% /pgf/decoration/random steps | erste Graphik
+  shadows%
+}
+
+\mode<presentation>
+
+\newcommand\eventtitle[1]{%
+  \def\inserteventtitle{#1}%
+}
+\eventtitle{}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%COLOR SCHEME
+
+%%%%%%% whale
+\setbeamercolor*{palette primary}{use=structure,fg=white,bg=structure.fg}
+\setbeamercolor*{palette secondary}{use=structure,fg=white,bg=structure.fg!75!black}
+\setbeamercolor*{palette tertiary}{use=structure,fg=white,bg=structure.fg!50!black}
+\setbeamercolor*{palette quaternary}{fg=white,bg=black}
+
+\setbeamercolor*{sidebar}{use=structure,bg=structure.fg}
+  
+\setbeamercolor*{palette sidebar primary}{use=structure,fg=structure.fg!10}
+\setbeamercolor*{palette sidebar secondary}{fg=white}
+\setbeamercolor*{palette sidebar tertiary}{use=structure,fg=structure.fg!50}
+\setbeamercolor*{palette sidebar quaternary}{fg=white}
+
+\setbeamercolor*{titlelike}{parent=palette primary}
+
+\setbeamercolor*{separation line}{}
+\setbeamercolor*{fine separation line}{}  
+
+%%%%%%% orchid
+\setbeamercolor{block title}{use=structure,fg=structure.fg!75!black,bg=blue!10!white}
+\setbeamercolor{block title alerted}{use=alerted text,fg=white,bg=alerted text.fg!75!black}
+\setbeamercolor{block title example}{use=example text,fg=white,bg=example text.fg!75!black}
+
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!40!bg}
+\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!10!bg}
+\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!10!bg}  
+
+%%%%%%% ?
+\setbeamercolor{frametitle}{fg=black!30!red,bg=blue!6!white}
+\setbeamercolor{title}{fg=black!20!red,bg=blue!5!white}
+
+
+\definecolor{LightBGray}{rgb}{0.85,0.85,0.95}
+
+\setbeamercolor{headPartColor}{fg=red, bg=blue}
+\setbeamercolor{headMainColor}{fg=blue, bg=LightBGray}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\AtBeginDocument{
+  {
+    \usebeamerfont*{headline}
+
+    \usebeamercolor{normal text}
+    \usebeamercolor{title in head/foot}
+    \usebeamercolor{subsection in head/foot}
+    \usebeamercolor{section in head/foot}
+    \usebeamercolor{frametitle}
+
+    \pgfdeclareverticalshading{beamer@aboveframetitle}{\the\paperwidth}{%
+      color(0ex)=(frametitle.bg);%
+      color(1ex)=(frametitle.bg);%
+      color(2ex)=(LightBGray)
+    }
+
+    \pgfdeclareverticalshading{beamer@belowframetitle}{\the\paperwidth}{%
+      color(0ex)=(normal text.bg);%
+      color(1ex)=(frametitle.bg)
+    }
+  }
+}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%OUTER SCHEME
+
+
+
+\def\headHeight{8mm}
+\def\headTextSep{0.65mm}
+\def\headPartHeight{5mm}
+\def\headPartWidth{115mm}
+\def\headPartRadius{1mm}
+\def\headPartTextDepth{1.1mm}
+\def\headLogoWidth{6mm}
+\def\headLogoHeight{7mm}
+
+
+\newlength{\headLogoVSkip}
+\setlength{\headLogoVSkip}{-\headPartHeight + (\headHeight - \headLogoHeight) * \real{0.5} }
+
+\newlength{\headLogoHSkip}
+\setlength{\headLogoHSkip}{\paperwidth - \headLogoWidth - 2mm}
+
+\newlength{\headPartTextX}
+\setlength{\headPartTextX}{5mm}
+
+\newlength{\headPartTextY}
+\setlength{\headPartTextY}{ \headPartHeight * \real{0.5}}
+
+\newlength{\headPartTextShadeX}
+\setlength{\headPartTextShadeX}{\headPartTextX + \headPartTextDepth}
+
+\newlength{\headPartTextShadeY}
+\setlength{\headPartTextShadeY}{\headPartTextY - \headPartTextDepth}
+
+\newlength{\headFinalVSkip}
+\setlength{\headFinalVSkip}{ (\headHeight - \headLogoHeight) * \real{0.5} }
+
+\newlength{\wutWidth}
+\newlength{\headTextOff}
+
+
+\font\headTextFont=pagd8r at 6.5pt
+\font\eventTextFont=pagd8r at 5.5pt
+
+\defbeamertemplate*{headline}{ccfd theme}
+{%
+
+    %\begin{beamercolorbox}[wd=\paperwidth,colsep=5.5pt]{blue}
+    %\end{beamercolorbox}
+
+	\settowidth{\wutWidth}{\headTextFont WARSAW UNIVERSITY OF TECHNOLOGY}
+	\setlength{\headTextOff}{\headPartWidth - \wutWidth - 1mm}
+
+    \begin{beamercolorbox}[wd=\paperwidth,ht=\headHeight,dp=0ex,leftskip=\headTextOff, sep=\headTextSep]{headMainColor}
+    	{\headTextFont WARSAW UNIVERSITY OF TECHNOLOGY}
+    \end{beamercolorbox}
+
+	\vskip -\headHeight
+    
+% 	\tikzset{external/export next=false}
+	\begin{tikzpicture}
+		%10mmentering,
+		%5mmleaving.
+		{
+			%\pgftransformshift{\pgfpoint{1.5cm}{2cm}}	
+	
+			\pgfsetfillcolor{blue}
+			\pgfpathmoveto{\pgfpointorigin}
+			\pgfpathlineto{\pgfpoint{0cm}{\headPartHeight}}
+			\pgfpathlineto{\pgfpoint{\headPartWidth}{\headPartHeight}}
+			\pgfsetcornersarced{\pgfpoint{\headPartRadius}{\headPartRadius}}
+			\pgfpathlineto{\pgfpoint{\headPartWidth}{0cm}}
+			\pgfsetcornersarced{\pgfpoint{0mm}{0mm}}
+			\pgfpathlineto{\pgfpoint{0cm}{0cm}}
+			\pgfusepath{fill}
+		}
+		{
+			\pgftransformshift{\pgfpoint{\headPartTextShadeX}{\headPartTextShadeY}}	
+			\pgfnode{rectangle}{text}{\color{black}\eventTextFont\inserteventtitle}{hellonode}{\pgfusepath{discard}}	
+		}
+		{
+			\pgftransformshift{\pgfpoint{\headPartTextX}{\headPartTextY}}	
+			\pgfnode{rectangle}{west}{\color{red}\eventTextFont \inserteventtitle}{hellonode}{\pgfusepath{discard}}	
+		}
+	\end{tikzpicture}
+
+	\vskip \headLogoVSkip
+	\hskip \headLogoHSkip
+	\includegraphics[height=\headLogoHeight]{logoCCFDnostr.pdf}
+	
+	%\pgfimage[width=\headLogoWidth]{CCFDlogo.gif}
+	\vskip \headFinalVSkip
+}
+
+\defbeamertemplate*{frametitle}{ccfd theme}
+{%
+  \nointerlineskip%
+  \usebeamerfont{headline}%
+  %\begin{beamercolorbox}[wd=\paperwidth,ht=1.5ex,dp=0ex]{empty}
+  %  \pgfuseshading{beamer@aboveframetitle}%
+  %\end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.5ex,dp=0ex]{frametitle}
+  \end{beamercolorbox}%
+  %\vskip-.5ex%
+  \nointerlineskip%
+  \begin{beamercolorbox}[wd=\paperwidth,leftskip=.3cm,rightskip=.3cm,center]{frametitle}
+    \usebeamerfont*{frametitle}\insertframetitle%
+      \ifx\insertframesubtitle\@empty%
+        \strut\par%
+      \else
+        \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\strut\par}%
+      \fi%%
+    \usebeamerfont{headline}%
+    \vskip.5ex  
+  \end{beamercolorbox}%
+  \nointerlineskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%INNER SCHEME
+
+\setbeamertemplate{items}[circle]
+
+%\setbeamerfont{block title}{size=\large,series=\bfseries}
+\setbeamerfont{title}{size=\large,series=\bfseries}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+%\setbeamerfont{framesubtitle}{size=\normalsize,series=\mdseries}
+
+%\setbeamertemplate{frametitle}[ccfd theme][center] 
+
+\defbeamertemplate*{background canvas}{ccfd theme}{%
+}% 
+
+\mode
+<all>

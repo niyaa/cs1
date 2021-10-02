@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+void fun(int rows, int move)
+{
+	int k;
+	for(int i=1; i<=rows; ++i, k=0)
+  {
+      for(int space=1; space<=rows+move-i; ++space)
+      {
+          printf("  ");
+      }
+
+      while(k != 2*i-1)
+      {		
+      		if(rand()%10)
+	          printf("* ");
+	        else if(rand()%6)
+	        	printf("o ");
+	        else
+	          printf("X ");
+          ++k;
+      }
+
+      printf("\n");
+  }
+}
+
+int main()
+{
+		srand(time(NULL));
+    int i, space, rows, k=0;
+
+    printf("Enter number of rows: ");
+    scanf("%d",&rows);
+
+		for(int i=0; i<=rows; ++i)
+	  	fun(i,rows-i+5);
+    
+    printf("\t\t |||\n");
+    
+    return 0;
+}

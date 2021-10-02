@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <string.h>
+
+struct Robot{
+  char name[50];
+  double x, y;
+} r1;
+
+int main(){
+  r1.x = 5.0;
+  struct Robot rr;
+  rr.x=9;
+  strcpy(rr.name, "Joanna");
+  
+  struct Robot *p = &rr;
+  rr.y=0;
+  
+  struct Robot r = {"New Robot", 0,0};
+}
