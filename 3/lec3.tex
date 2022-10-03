@@ -1,0 +1,344 @@
+\documentclass[10pt]{beamer}
+
+% \usepackage{define}
+
+\usetheme{CCFD}
+\usepackage{color}
+\definecolor{gray97}{gray}{.90}
+\definecolor{gray75}{gray}{.75}
+\usepackage{listings}
+\lstset{frame=Ltb,
+     framerule=0pt,
+     aboveskip=0cm,
+     framextopmargin=0pt,
+     framexbottommargin=0pt,
+     framexleftmargin=0cm,
+     framesep=0pt,
+     rulesep=0pt,
+     backgroundcolor=\color{gray97},
+     rulesepcolor=\color{black},
+     language=C,
+           basicstyle=\ttfamily\scriptsize,
+           keywordstyle=\color{blue}\ttfamily,
+           stringstyle=\color{red}\ttfamily,
+           commentstyle=\color{green}\ttfamily,
+          breaklines=true,
+          }
+\lstdefinestyle{consol}
+   {basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+}
+\resetcounteronoverlays{lstnumber}
+
+\newcommand{\tabitem}{%
+  \usebeamertemplate{itemize item}\hspace*{\labelsep}}
+
+\usepackage{tikz}
+\usetikzlibrary{calc,shapes}
+
+\eventtitle{Computer Science I}
+\title{Lecture 3}
+\date{}
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{navigation symbols}[]
+
+\begin{document}
+
+\frame{
+    \titlepage
+}
+
+\frame{
+  \frametitle{We know types!}
+    \begin{itemize}
+      \item int,
+      \item float, double
+      \item char,
+      \item bool
+      \item void
+      \item example ...
+    \end{itemize}
+}
+
+\section{Working with variables}
+
+\begin{frame}[fragile]
+  \frametitle{Variables}
+  \centering
+Substitution and assignment:
+    \begin{lstlisting}
+int a,b; //declare two variables of type int
+a=35; //a store value of 35
+b=6; //b store 6
+a=a+b;// perform addition in temporary space, copy on to a
+    \end{lstlisting}
+
+An arithmetic expresion:
+    \begin{lstlisting}
+double x1; //declare a variable of type double
+x1=(-b+sqrt(delta))/(2.0*a); //Perform RHS operation, write result to x1
+    \end{lstlisting}
+
+Example ...
+
+\end{frame}
+
+\subsection{Operators}
+
+\begin{frame}[fragile]
+  \frametitle{Substitution}
+  \centering
+  When using "=" sign variable on the LHS is assigned value of RHS. This does not necessarily means equality!\\
+  The RHS is calculated first and later the value is copied to the LHS. Types of LHS and RHS should be the same.\\
+  Mixing of types should be avoided.\\
+\begin{lstlisting}
+double x1=6.28;
+int a = 2
+a = x1; //loss of data since a=6!
+x1=a;
+\end{lstlisting}
+There is an explicit way to change the type: casting
+\begin{lstlisting}
+double x1=6.28;
+int a = 2
+a = (int)x1; //loss of data, but no warning
+x1=(double)2/3; //x1 is not zero
+\end{lstlisting}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Precedence of operators}
+  \framesubtitle{The ones we know so far}
+  \centering
+  \begin{enumerate}
+    \item () brackets
+    \item + - unary plus/minus: (-1)
+    \item * / \% binary operator a*b
+    \item - + binary operator a+b
+  \end{enumerate}
+
+\begin{lstlisting}
+-5 * 3 + 4 * 5. / 2. 
+((-5)*3)+(4*5)/2.
+\end{lstlisting}
+
+examples ...
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Increment/decrement operators}
+  Increment / decrement operators are unary operators that change the value of a variable by 1.\\
+  They can have postfix or prefix form
+
+\begin{lstlisting}
+a++ //postfix
+a--
+++a //prefix
+--a
+\end{lstlisting}
+
+\begin{lstlisting}
+int a = 1;
+int b = a++; // stores 1+a (which is 2) to a
+             // returns the value of a (which is 1)
+             // After this line, b == 1 and a == 2
+a = 1;
+int c = ++a; // stores 1+a (which is 2) to a
+             // returns 1+a (which is 2)
+             // after this line, c == 2 and a == 2
+\end{lstlisting}
+
+example ...
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Compound Assignment Operators += -= *= /=}
+  Change the value of the RHS by the value of the LHS
+
+\begin{lstlisting}
+a+=b; // same as a = a +b;
+a-=b; // same as a = a -b;
+a*=b; // same as a = a *b;
+a/=b; // same as a = a /b;
+\end{lstlisting}
+
+\begin{lstlisting}
+int a = 1;
+int b = 5;
+a+=b;
+a-=1;
+a*=9;
+a/=b;
+...
+\end{lstlisting}
+
+example ...
+
+\end{frame}
+
+\section{IO operations}
+\subsection{printf}
+
+\begin{frame}[fragile]
+  \frametitle{printf()}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+\begin{lstlisting}
+int a = 1;
+float b=4.78;
+double c=3.4e9;
+char d='e'
+printf("%d %f %e %c \n", a, b, c, d)
+\end{lstlisting}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item \textit{\#include $<$stdio.h$>$}
+        \item Sends formatted output to stdout - the screen
+        \item \textit{int printf(const char *f, ...)}\\
+        returns the total number of characters written
+        \item \textit{f}-text to be written, might contain format tags, replaced by value provided in arguments. Format tag is as follows: \textit{\textbf{\%specifier}}
+        \item We know some specifiers:\\
+        c, d or i, e, E, f, g, o, u, x or X
+        \item examples ...
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{printf()}
+  \frametitle{new stuff}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+\begin{lstlisting}
+int a = 1;
+float b=4.78;
+double c=3.4e9;
+char d='e'
+printf("%+d %-f %10e %c \n", a, b, c, d)
+printf("%.10d %10.10f %10e %c \n", a, b, c, d)
+\end{lstlisting}
+    \end{column}
+    \begin{column}{0.52\textwidth}
+      \begin{itemize}
+        \item Format tag might contain more information
+        \item \textit{\bf{\%[flags][width][.prec]spc}}
+        \item Some Flags: - left justify, +force sign
+        \item width - minimum number of characters to be printed
+        \item .prec - for ints: the minimum number of digits to be written\\
+        For e, E and f: the number of digits to be printed after the decimal point.\\
+        For g and G: This is the maximum number of significant digits to be printed.
+        \item examples ...
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{printf()}
+  \frametitle{The cursor control}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+\begin{lstlisting}
+printf(" aaa b\b \n fff \t ff \v fff \r a ")
+\end{lstlisting}
+    \end{column}
+    \begin{column}{0.52\textwidth}
+      \begin{itemize}
+        \item \textbackslash b - backspace
+        \item \textbackslash n - carriage return and newline
+        \item \textbackslash t - tab
+        \item \textbackslash v - newline
+        \item \textbackslash r - carriage return
+        \item \textbackslash \textbackslash - \textbackslash
+        \item \textbackslash '' - '
+        \item examples ...
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{scanf}
+
+\begin{frame}[fragile]
+  \frametitle{scanf()}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+\begin{lstlisting}
+int a;
+scanf("%d", &a);//Read int
+\end{lstlisting}
+\centering
+\includegraphics[width=0.7\textwidth, height=0.7\textheight, keepaspectratio]{scanf_perils}\\
+He forgot abouth \& \\
+{\tiny Source: the XKCD commic}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item \textit{\#include $<$stdio.h$>$}
+        \item Reads formatted input from stdin - the keybord
+        \item \textit{int scanf(const char *f, ...)}\\
+        returns the total number of characters written
+        \item \textit{f}- a string containing a format specifier \textit{\textbf{\%specifier}}
+        \item \textbf{Mind the \&} - very very important!!
+        \item examples ...
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{math.h}
+
+\begin{frame}[fragile]
+  \frametitle{math.h}
+  \framesubtitle{trigonometric}
+  \begin{itemize}
+  \item Defines various mathematical functions
+  \item examples ...
+  \end{itemize}
+
+\begin{lstlisting}
+#include <math.h>
+double acos(double x) Returns the arc cosine of x in radians.
+double asin(double x) Returns the arc sine of x in radians.
+double atan(double x) Returns the arc tangent of x in radians.
+double atan2(doubly y, double x)Returns the arc tangent in radians of y/x based on the signs of both values to determine the correct quadrant.
+
+double cos(double x) Returns the cosine of a radian angle x.
+double cosh(double x) Returns the hyperbolic cosine of x.
+double sin(double x) Returns the sine of a radian angle x.
+double sinh(double x) Returns the hyperbolic sine of x.
+double tanh(double x) Returns the hyperbolic tangent of x.
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{math.h}
+
+\begin{lstlisting}
+#include <math.h>
+double exp(double x) Returns the value of e raised to the xth power.
+double log(double x)Returns the natural logarithm (base-e logarithm) of x.
+double log10(double x)Returns the common logarithm (base-10 logarithm) of x.
+double pow(double x, double y)Returns x raised to the power of y.
+double sqrt(double x)Returns the square root of x.
+double ceil(double x)Returns the smallest integer value greater than or equal to x.
+double fabs(double x)Returns the absolute value of x.
+double floor(double x)Returns the largest integer value less than or equal to x.
+
+\end{lstlisting}
+
+for $e^x$ use \textit{exp(x)}, never use \textit{pow(exp(1), x)} ...
+
+Examples!
+
+\end{frame}
+
+\end{document}

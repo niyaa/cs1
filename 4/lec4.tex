@@ -1,0 +1,306 @@
+\documentclass[10pt]{beamer}
+
+% \usepackage{define}
+
+\usetheme{CCFD}
+\usepackage{color}
+\definecolor{gray97}{gray}{.90}
+\definecolor{gray75}{gray}{.75}
+\usepackage{listings}
+\lstset{frame=Ltb,
+     framerule=0pt,
+     aboveskip=0cm,
+     framextopmargin=0pt,
+     framexbottommargin=0pt,
+     framexleftmargin=0cm,
+     framesep=0pt,
+     rulesep=0pt,
+     backgroundcolor=\color{gray97},
+     rulesepcolor=\color{black},
+     language=C,
+           basicstyle=\ttfamily\scriptsize,
+           keywordstyle=\color{blue}\ttfamily,
+           stringstyle=\color{red}\ttfamily,
+           commentstyle=\color{green}\ttfamily,
+          breaklines=true,
+          }
+\lstdefinestyle{consol}
+   {basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+}
+\resetcounteronoverlays{lstnumber}
+
+\newcommand{\tabitem}{%
+  \usebeamertemplate{itemize item}\hspace*{\labelsep}}
+
+\usepackage{tikz}
+\usetikzlibrary{calc,shapes}
+
+\eventtitle{Computer Science I}
+\title{Lecture 4}
+\date{}
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{navigation symbols}[]
+
+\begin{document}
+
+\frame{
+    \titlepage
+}
+
+% \begin{frame}[fragile]
+%   \frametitle{printf() and scanf()}
+%
+% \begin{lstlisting}
+% #include <stdio.h>
+% int a;
+% double b;
+% scanf("%d", &a);
+% scanf("%lf", &b);
+%
+% printf("\t a=%d \t b=%lf \n", a, b);
+%
+% \end{lstlisting}
+%
+% \end{frame}
+%
+\section{Branching}
+% if ?: switch
+
+\begin{frame}
+\frametitle{Code branching}
+\framesubtitle{is about choosing the right path}
+  \begin{itemize}
+    \item Branching is deciding what actions to take
+    \item The program chooses to follow one branch or another
+    \item \textit{if()}
+    \item \textit{? :} operator
+    \item \textit{switch() {}}
+  \end{itemize}
+\end{frame}
+
+\subsection{if()}
+
+\begin{frame}
+  \frametitle{\textit{if()}}
+  \framesubtitle{If today is Monday I will study C programming}
+  
+  \begin{itemize}
+    \item Based on a concept of \textit{TRUE} or \textit{FALSE}
+    \item \textit{TRUE} is a statement that evaluates to a nonzero value
+    \item \textit{FALSE} evaluates to zero
+    \item Use of relational operators:
+    \begin{itemize}
+      \item $>$     greater than       -       5 $>$ 4 is TRUE
+      \item $<$     less than           -      4 $<$ 5 is TRUE
+      \item $>=$    greater than or equal -    4 $>=$ 4 is TRUE
+      \item $<=$    less than or equal      -  3 $<=$ 4 is TRUE
+      \item $==$    equal to               -   5 $==$ 5 is TRUE
+      \item $!=$    not equal to            -  5 $!=$ 4 is TRUE
+    \end{itemize}
+    \item exapmles ...
+  \end{itemize}
+  \centering
+  {\bf \color{red} \Large Do not use \textit{=} to test equality, use == !!!} 
+\end{frame}
+
+\begin{frame}
+  \frametitle{AND and OR}
+  \framesubtitle{\&\& and $||$}
+  
+  \begin{itemize}
+    \item Used for more complex logical statements
+    \item \&\& - logical AND
+    \item $||$ - logical OR
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Basic if syntax}
+  
+  \begin{lstlisting}
+if (statement that evaluates to TRUE or FALSE)
+  instruction
+  
+if (statement that evaluates to TRUE or FALSE)
+{
+  multi
+  line
+  instruction
+}  
+    \end{lstlisting}
+    
+    examples ...
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{What else?}
+  
+  \begin{lstlisting}
+if (statment that evaluates to TRUE or FALSE)
+  instruction
+else
+  another set of instructions
+  
+if (statment that evaluates to TRUE or FALSE)
+{
+  multi
+  line
+  instruction
+}
+else
+  another set of instructions - could be multiline
+    \end{lstlisting}
+    
+    examples ...
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{else if()}
+  
+  \begin{lstlisting}
+if (statment that evaluates to TRUE or FALSE)
+  instruction
+else if()
+  another set of instructions
+else if()
+ ...
+  
+if (statment that evaluates to TRUE or FALSE)
+{
+  multi
+  line
+  instruction
+}
+else if()
+  another set of instructions - could be multiline
+    \end{lstlisting}
+    
+    examples ...
+\end{frame}
+
+\subsection{Inline if}
+
+\begin{frame}[fragile]
+  \frametitle{Inline if}
+  \framesubtitle{?:}
+  \begin{itemize}
+    \item It is like an \textit{if else}
+    \item Might be used within expressions
+    \item The only ternary operator in C
+  \end{itemize}
+  \begin{lstlisting}
+if condition is true ? then X return value : otherwise Y value;
+
+int a=5;
+int b=1, c=2;
+int d = b > c ? a + b : a + c;
+    \end{lstlisting}
+    
+    examples ...
+\end{frame}
+
+\subsection{swich}
+
+\begin{frame}[fragile]
+  \frametitle{switch()}
+  \begin{itemize}
+    \item Much like nested if else
+    \item Might be more efficient
+  \end{itemize}
+  
+    \begin{lstlisting}
+switch( expression )
+{
+  case expr1:
+    instructions;
+    break;
+  case expr2:
+    instructions;
+    break;
+  default:
+    instructions;
+}
+    \end{lstlisting}
+    
+    \begin{itemize}
+      \item key word \textit{break}
+      \item key word \textit{default}
+      \item examples...
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Functions}
+\framesubtitle{Enclose actions into separate procedures}
+
+  \begin{itemize}
+    \item It makes sense to split the program into easy to maintain pieces
+    \item We use the concept of {\bf functions} to encapsulate actions that our program might perform
+    \item Much as mathematical functions, functions in {\bf C} have arguments.
+    \item Functions might {\bf return} a value (or not) to the {\it caller}
+  \end{itemize}
+  
+  Syntax of a function:
+    \begin{lstlisting}
+type_of_function function_name (list_of_arguments)
+{
+  // body of a function
+  return statment ends the function
+}
+    \end{lstlisting}
+    
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Functions}
+\framesubtitle{Enclose actions into separate procedures}
+
+    \begin{itemize}
+      \item Functions are compiled separately.
+      \item Functions can be stored in different files.
+      \item Once compiled functions are linked into the executable during Linking process.
+      \item Nots: Linker errors are nasty!       
+    \end{itemize}
+     
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Functions}
+\framesubtitle{Enclose actions into separate procedures}
+
+    \begin{itemize}
+      \item Functions can be {\bf declared} and {\bf defined} before the call is made,
+      \item or the {\bf definition} can be postponed with {\bf declaration} only visible.
+      \item Functions are identified by type, name and arguments.
+      \item Consequently there can be more than one function with the same name.
+    \end{itemize}
+    
+\begin{lstlisting}
+int fun1 (int a) { return a+5; }
+int fun2 (int a, int b);
+int main(){
+  int b = fun1(5);
+  int c = fun1(5, 7);
+}
+int fun2 (int a, int b)
+{
+  return a+b;
+}
+\end{lstlisting}
+
+Note: Identifiers of arguments apply only within a function body!
+     
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+\end{document}

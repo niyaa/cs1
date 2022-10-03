@@ -1,0 +1,187 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+	struct node*	pnext;
+	int				elem;
+} snode;
+
+snode* alloc_node()
+{
+	return (snode*)malloc( sizeof(snode) );
+}
+
+
+snode* find_last( snode* ph)
+{
+	for ( snode *p=ph; p!=NULL; p=p->pnext )
+		if ( p->pnext == NULL )
+			return p;
+}
+
+snode* find_i( snode* ph, int i)
+{
+	snode *p=ph;
+	for ( int k=0; k<i; ++k)
+	{
+		if ( !p)
+			return NULL;
+
+		p=p->pnext;
+	}
+
+	return p;
+}
+
+void add_head( snode **ph, int d)
+{
+	snode *p = alloc_node();
+	p->elem = d;
+	p->pnext = *ph;
+	*ph = p;
+}
+
+void add_after_node( snode *pi, int d)
+{
+	if ( !pi)
+		return;
+
+	snode *p = alloc_node();
+	p->elem = d;
+	p->pnext = pi->pnext;
+	pi->pnext = p;
+}
+
+void add_after_i( snode *ph, int i, int d)
+{
+	snode *pi = find_i( ph, i);
+
+	if ( !pi)
+		return;
+
+	snode *p = alloc_node();
+	p->elem = d;
+	p->pnext = pi->pnext;
+	pi->pnext = p;
+}
+
+void add_i( snode **ph, int i, int d)
+{
+	snode pnh;
+	pnh.pnext = *ph;
+	pnh.elem = 0;
+	add_after_i( &pnh, i, d);
+	*ph = pnh.pnext;
+}
+
+
+void rm_after_i( snode *ph, int i)
+{
+	snode *pi = find_i( ph, i);
+
+	if ( !pi)
+		return;
+
+	snode *pn = pi->pnext;
+	if ( pn )
+	{
+		pi->pnext = pn->pnext;
+		free( pn);
+	}
+}
+
+
+void rm_i( snode **ph, int i)
+{
+	snode pnh;
+	pnh.pnext = *ph;
+	pnh.elem = 0;
+	rm_after_i( &pnh, i);
+	*ph = pnh.pnext;
+}
+
+
+
+void print_list( snode* ph)
+{
+	for ( snode *p=ph; p!=NULL; p=p->pnext )
+	{
+		printf( "[ %p ] : ", p);
+		if ( p)
+			printf( "%p %d\n", p->pnext, p->elem );
+	}
+}
+
+int main()
+{
+	snode *phead = NULL;
+
+	for ( int i=0; i<10; ++i)
+	{
+		add_head( &phead, i);
+	}
+
+	print_list( phead);
+
+	for ( snode *p=phead; p!=NULL; p=p->pnext )
+		printf( "%d ", p->elem );
+	printf( "\n");
+
+	//////find_last( phead )->elem = 120;
+	add_after_node( phead, 33 );
+
+	for ( snode *p=phead; p!=NULL; p=p->pnext )
+		printf( "%d ", p->elem );
+	printf( "\n");
+
+	add_after_i( phead, 5, 45 );
+
+	for ( snode *p=phead; p!=NULL; p=p->pnext )
+		printf( "%d ", p->elem );
+	printf( "\n");
+
+	rm_after_i( phead, 0);
+
+	for ( snode *p=phead; p!=NULL; p=p->pnext )
+		printf( "%d ", p->elem );
+	printf( "\n");
+
+/*	rm_after_i( phead, 9);
+
+	for ( snode *p=phead; p!=NULL; p=p->pnext )
+		printf( "%d ", p->elem );
+	printf( "\n");
+
+	rm_i( &phead, 5);
+
+	for ( snode *p=phead; p!=NULL; p=p->pnext )
+		printf( "%d ", p->elem );
+	printf( "\n");
+
+	rm_i( &phead, 0);
+
+	for ( snode *p=phead; p!=NULL; p=p->pnext )
+		printf( "%d ", p->elem );
+	printf( "\n");*/
+
+	////add_i( &phead, 0, 12);
+
+	////for ( snode *p=phead; p!=NULL; p=p->pnext )
+	////	printf( "%d ", p->elem );
+	////printf( "\n");
+
+	////add_i( &phead, 5, 13);
+
+	////for ( snode *p=phead; p!=NULL; p=p->pnext )
+	////	printf( "%d ", p->elem );
+	////printf( "\n");
+
+	////add_i( &phead, 10, 23);
+
+	////for ( snode *p=phead; p!=NULL; p=p->pnext )
+	////	printf( "%d ", p->elem );
+	////printf( "\n");
+
+	////print_list( &phead);
+}

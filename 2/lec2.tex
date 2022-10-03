@@ -1,0 +1,546 @@
+\documentclass[10pt]{beamer}
+
+% \usepackage{define}
+
+\usetheme{CCFD}
+\usepackage{color}
+\definecolor{gray97}{gray}{.90}
+\definecolor{gray75}{gray}{.75}
+\usepackage{listings}
+\lstset{frame=Ltb,
+     framerule=0pt,
+     aboveskip=0cm,
+     framextopmargin=0pt,
+     framexbottommargin=1pt,
+     framexleftmargin=0.1cm,
+     framesep=1pt,
+     rulesep=.4pt,
+     backgroundcolor=\color{gray97},
+     rulesepcolor=\color{black},
+     language=C,
+           basicstyle=\ttfamily\scriptsize,
+           keywordstyle=\color{blue}\ttfamily,
+           stringstyle=\color{red}\ttfamily,
+           commentstyle=\color{green}\ttfamily,
+          breaklines=true,
+          %
+          numbers=left,
+          numberstyle=\tiny,
+          numbersep=6pt,
+%           numberfirstline = false,
+%           breaklines=true
+          }
+\lstdefinestyle{consol}
+   {basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+}
+\resetcounteronoverlays{lstnumber}
+
+\newcommand{\tabitem}{%
+  \usebeamertemplate{itemize item}\hspace*{\labelsep}}
+
+\usepackage{tikz}
+\usetikzlibrary{calc,shapes}
+
+\eventtitle{Computer Science I}
+\title{Lecture 2}
+\subtitle{data types}
+\date{}
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{navigation symbols}[]
+
+\begin{document}
+
+\frame{
+    \titlepage
+}
+
+\frame{
+  \frametitle{What we have seen so far}
+    \begin{itemize}
+      \item Basic elements of C
+      \item Comments: /* */ - multi line, // - single line
+      \item \#include $< >$ or " " - appending headers
+      \item Functions
+      \item semicolons ; 
+      \item Brackets (), \{\}
+    \end{itemize}
+}
+
+\begin{frame}[fragile]{Program}
+    \begin{lstlisting}
+/* Description - not mandatory but polite*/
+#include <stdio.h> //Preprocessor commands starting with a \# Note no semicolons ";".
+
+void fun2(); // declaration of fun 2, definition below
+
+void fun1() // definition of fun 1
+{
+  printf("Hello from 1!\n")
+}
+
+int main() //The main function must be there
+{
+  fun1();
+  printf("Hello from main!\n", c); // \n starts new line
+  fun2();
+  return 0;
+}
+
+void fun2() // definition of fun2
+{
+  printf("Hello from 2!\n")
+}
+   
+    \end{lstlisting}
+ 
+\end{frame}
+
+% \begin{frame}[fragile]
+%   \frametitle{;}
+%   Semicolon ends the line
+%   \begin{columns}
+%     \begin{column}{0.48\textwidth}
+%     \begin{lstlisting}
+% x1=(-b-sqrt(delta))/(2*a);
+%     \end{lstlisting}
+%     \end{column}
+%     \begin{column}{0.48\textwidth}
+%     \begin{lstlisting}
+% x1=(-b
+% -sqrt(
+% delta))
+% /
+% (2*a);
+%     \end{lstlisting}
+%     \end{column}
+%   \end{columns}
+% \end{frame}
+
+\frame{
+  \frametitle{Data types}
+  \framesubtitle{Everything lives in computer's memory}
+
+  Our program processes data, and everything it does or uses is stored in computer's memory. 
+  Basic data types allow for declaration of variables and allocation of necessary resources (space in memory).
+  
+  \hspace{1cm}
+  
+  For today:
+    \begin{itemize}
+      \item Simple data types with examples.
+      \item Arithmetic operations.
+      \item Precedence of operators.
+      \item Some fun with characters.
+      \item Printing of variables with \it printf()
+    \end{itemize}
+}
+
+\section{Selected data types}
+
+\frame{
+  \frametitle{Selected data types in C}
+    \begin{itemize}
+      \item Used to declare variables or define functions.
+      \item Determine size the variable occupies in memory.
+      \item Need format specifiers to print with {\it printf()}.
+      \item We limit our interest to integers, real numbers, characters, boolean and ... void types
+      \item The size defined by a specific data type might vary with implementation (32b vs 64b), use {\it sizeof()}
+      \item There is more ...
+    \end{itemize}
+}
+
+\subsection{int}
+
+\begin{frame}
+  \frametitle{Integers}
+  \framesubtitle{int, unsigned int, long int, long long int, unsigned long long int}
+  \centering
+
+    \begin{itemize}
+      \item 4 6 842 -6 2 1024 - integers\\
+      \item 4.8 3.141592 1.- not integers - mind the dot
+      \item keyword {\bf int}
+      \item 2 or {\bf 4} Bytes (B)
+      \item $-2,147,483,648 - 2,147,483,647$
+      \item Format specifiers for \it printf():
+        \begin{itemize}
+          \item \%d \%i - signed integer (\%li \%ld for long).
+          \item \%o	- Octal integer.
+          \item \%x \%X - Hex integer.
+          \item \%u - unsigned integer.
+        \end{itemize}
+      \item 012 in octal representation
+      \item 0x10 in hexadecimal representation
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{int}
+  \centering
+
+    \begin{lstlisting}
+#include <stdio.h>
+
+int main()
+{
+  printf("Storage size for int : %ld B \n", sizeof(int));
+  int a=032;
+  int b=0x23;
+  int c=23;
+  int d=-1;
+  printf("a=%d, b=%d, c=%d, d=%d\n", a, b, c, d);
+  printf("a=%x, b=%x, c=%x, d=%x\n", a, b, c, d);
+  printf("a=%o, b=%o, c=%o, d=%o\n", a, b, c, d);
+  printf("a=%u, b=%u, c=%u, d=%u\n", a, b, c, d);
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{int arithmetic}
+  \centering
+
+  \begin{columns}
+    \begin{column}{0.52\textwidth}
+    \begin{lstlisting}
+#include <stdio.h>
+
+int main()
+{
+  int a=5, b=4;
+  printf("%d+%d=%d\n", a, b, a+b);
+  printf("%d-%d=%d\n", a, b, a-b);
+  printf("%d*%d=%d\n", a, b, a*b);
+  printf("%d/%d=%d\n", a, b, a/b);
+  printf("%d/%d=%d\n", b, a, b/a);
+  printf("%d%%%d=%d\n", a, b, a%b);
+}
+    \end{lstlisting}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{itemize}
+        \item a + b addition
+        \item a - b subtraction
+        \item a * b multiplication
+        \item a / b division
+        \item a \% b remainder of division
+      \end{itemize}
+      {\small note 1: To print \% one needs \%\%  !\\
+      note 2: The result has the same type {\it int} as arguments!}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Real type - floats, doubles}
+
+\begin{frame}
+  \frametitle{Real floating-point}
+  \framesubtitle{float, double, long double}
+  \centering
+  4.8 3.141592 1.0 0.5 -3.14 2. - real numbers \\
+  
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+    \centering
+      {\large \bf float}
+      \begin{itemize}
+      \item keyword {\bf float}
+      \item 4B (single precision!)
+      \item $1.2\cdot10^{-38}$ to $3.4\cdot10^{38}$
+      \item 6 decimal places
+      \item Format specifiers:
+        \begin{itemize}
+          \item \%f
+        \end{itemize}
+    \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \centering
+      {\large \bf double}
+      \begin{itemize}
+      \item keyword {\bf double}
+      \item 8B (double precision!)
+      \item $2.3\cdot10^{-308}$ to $1.7\cdot10^{308}$
+      \item 15 decimal places
+      \item Format specifiers:
+        \begin{itemize}
+          \item \%lf
+        \end{itemize}
+    \end{itemize}
+    \end{column}
+  \end{columns}
+  
+  \begin{center}
+    \begin{tabular}{@{}l@{}}
+        \tabitem \%e \%E	- Scientific notation.\\
+        \tabitem \%g \%G - Similar as \%e or \%E.
+    \end{tabular}
+  \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{float and double}
+  \centering
+
+    \begin{lstlisting}
+#include <stdio.h>
+#include <math.h> // the math library
+
+int main()
+{
+  printf("Storage size for float : %ld B \n", sizeof(float));
+  printf("Storage size for double : %ld B \n", sizeof(double));
+  float a = 4.0 * atan(1.0); // This is PI
+  double b = 4.0 * atan(1.0); // This is PI
+  printf("a=%f, a=%e, a=%E, a=%g, a=%G\n", a, a, a, a, a);
+  printf("b=%f, b=%e, b=%E, b=%g, b=%G\n", b, b, b, b, b);
+  a = 6.02214085774e23;
+  b = 6.02214085774e23;
+  printf("a=%f, a=%e, a=%E, a=%g, a=%G\n", a, a, a, a, a);
+  printf("b=%f, b=%e, b=%E, b=%g, b=%G\n", b, b, b, b, b);
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{float and double arithmetic}
+  \centering
+
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+    \begin{lstlisting}
+#include <stdio.h>
+
+int main()
+{
+  double a=5.0, b=4.0;
+  printf("%lf+%lf=%lf\n", a, b, a+b);
+  printf("%lf-%lf=%lf\n", a, b, a-b);
+  printf("%lf*%lf=%lf\n", a, b, a*b);
+  printf("%lf/%lf=%lf\n", a, b, a/b);
+  printf("%lf/%lf=%lf\n", b, a, b/a);
+}
+    \end{lstlisting}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{itemize}
+        \item a + b addition
+        \item a - b subtraction
+        \item a * b multiplication
+        \item a / b division
+      \end{itemize}
+      {note 1: The result has the same type {\it float} or {\it double} as arguments!}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{char}
+
+\begin{frame}
+  \frametitle{Characters}
+  \framesubtitle{char}
+  \centering
+
+    \begin{itemize}
+      \item 'a' 'b' 'c' '1' etc.
+      \item or hexadecimal ASCI code, e.g.: '\textbackslash x15' '\textbackslash x9c' 
+      \item keyword {\bf char}
+      \item 1B
+      \item "a" is not 'a' !  "a" is 'a' and '\textbackslash 0' - null sign
+      \item Format specifiers: \%c
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{char}
+  \centering
+
+    \begin{lstlisting}
+#include <stdio.h>
+
+int main()
+{
+  printf("Storage size for char : %ld B \n", sizeof(char));
+  char a = 'a';
+  printf("a=%c \n", a);
+  printf("a=%d \n", a);
+  a = '\x15';
+  printf("a=%c \n", a);
+  printf("a=%d \n", a);
+  a = "R";
+  printf("a=%c \n", a);
+  printf("a=%d \n", a);
+  a = 'R';
+  printf("a=%c \n", a);
+  printf("a=%d \n", a);
+  a = '\0';
+  printf("a=%c \n", a);
+  printf("11 %c 11 %c 11 %c 11 \n", '\0', '\x00', '\x30');
+  printf("11 %d 11 %d 11 %d 11 \n", '\0', '\x00', '\x30');
+}
+    \end{lstlisting}
+\end{frame}
+
+\subsection{bool}
+
+\begin{frame}
+  \frametitle{bool}
+  \framesubtitle{To be full of bool? To be false or true?}
+  \centering
+    \begin{itemize}
+      \item Represents logical value
+      \item introduced in C99
+      \item need \#include $<$stdbool.h$>$
+      \item {\it true} or {\it false}
+      \item keyword {\bf bool} or {\bf \_Bool}
+      \item 1B or same as int (platform dependant)
+      \item Has no format specifier, use \%d (see example)
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{bool}
+  \centering
+
+    \begin{lstlisting}
+#include <stdio.h>
+#include <stdbool.h>
+
+int main()
+{
+  printf("Storage size for char : %ld B \n", sizeof(bool));
+  bool a = true;
+  printf("a=%d\n", a);
+  a = false;
+  printf("a=%d\n", a);
+  
+  //For curious students:
+  a = true;
+  printf("a=%s \n", a ? "true" : "false");
+  a = false;
+  printf("a=%s \n", a ? "true" : "false");
+}
+ \end{lstlisting}
+\end{frame}
+
+\subsection{void}
+
+\begin{frame}[fragile]
+  \frametitle{void}
+  \centering
+  Specifies no value available
+    \begin{itemize}
+      \item Functions with no return are {\bf void}
+      \item Functions that accept no arguments accepts {\bf void}
+      \item There can be a pointer (what is a pointer?) to {\bf void} - it points to an address, but does not specify the variable type - more later on 
+      \item keyword {\bf void}
+      \item 1B (?) - it has no size
+    \end{itemize}
+  \centering
+
+    \begin{lstlisting}
+#include <stdio.h>
+
+int main()
+{
+  printf("Storage size for void : %ld B \n", sizeof(void)); //should not work, works in gcc
+  void a; //Not possible
+  printf(" %d \n", a);
+}
+    \end{lstlisting}
+
+\end{frame}
+
+\section{Working with variables}
+
+\begin{frame}[fragile]
+  \frametitle{Operations on variables}
+  \centering
+Substitution:
+    \begin{lstlisting}
+int a,b; //declare two variables of type int
+a=35; //assigment: a store value of 35
+b=6; //b store 6
+    \end{lstlisting}
+
+An arithmetic expresion:
+     \begin{lstlisting}   
+a=a+b;// perform addition in temporary space, and assign the result to a
+    \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Assignment}
+  \centering
+  When using '=' sign variable on the Left of '=' is assigned the value on the Right. This does not necessarily means equality!
+  
+  The Value on the Right is calculated first and later the value is copied to the Left. Types on the Left and Right should be the same
+  and type mixing should be avoided.
+  
+\begin{lstlisting}
+double x1=6.28;
+int a = 2
+a = x1; //loss of data since a=6!
+x1=a;
+\end{lstlisting}
+There is an explicit way to change the type: casting
+\begin{lstlisting}
+double x1=6.28;
+int a = 2
+a = (int)x1; //loss of data, but no warning
+x1=(double)2/3; //x1 is not zero
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Precedence of operators}
+  \framesubtitle{The ones we know so far}
+  \centering
+  \begin{enumerate}
+    \item () brackets
+    \item + - uary plus/minus: (-1)
+    \item * / \% binary operator a*b
+    \item - + binary operator a+b
+  \end{enumerate}
+
+\begin{lstlisting}
+-5 * 3 + 4 * 5. / 2. 
+((-5)*3)+(4*5)/2.
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Increment/decrement operators}
+  Increment / decrement operators are unary operators that change the value of a variable by 1.\\
+  They can have postfix or prefix form
+
+\begin{lstlisting}
+a++ //postfix
+a--
+++a //prefix
+--a
+\end{lstlisting}
+
+\begin{lstlisting}
+int a = 1;
+int b = a++; // stores 1+a (which is 2) to a
+             // returns the value of a (which is 1)
+             // After this line, b == 1 and a == 2
+a = 1;
+int c = ++a; // stores 1+a (which is 2) to a
+             // returns 1+a (which is 2)
+             // after this line, c == 2 and a == 2
+\end{lstlisting}
+
+\end{frame}
+
+\end{document}

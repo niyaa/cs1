@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+  int *p = (int*)malloc(6*sizeof(int));
+  
+  p[0] = 11;
+  p[1] = 12;
+  p[2] = 13;
+  p[3] = 21;
+  p[4] = 22;
+  p[5] = 23;
+    
+  free(p);
+}

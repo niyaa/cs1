@@ -1,0 +1,170 @@
+\documentclass[10pt]{beamer}
+
+% \usepackage{define}
+\usepackage{animate}
+
+\usetheme{CCFD}
+\usepackage{color}
+\definecolor{gray97}{gray}{.90}
+\definecolor{gray75}{gray}{.75}
+\usepackage{listings}
+\lstset{frame=Ltb,
+     framerule=0pt,
+     aboveskip=0cm,
+     framextopmargin=0pt,
+     framexbottommargin=0pt,
+     framexleftmargin=0cm,
+     framesep=0pt,
+     rulesep=0pt,
+     backgroundcolor=\color{gray97},
+     rulesepcolor=\color{black},
+     language=C,
+           basicstyle=\ttfamily\scriptsize,
+           keywordstyle=\color{blue}\ttfamily,
+           stringstyle=\color{red}\ttfamily,
+           commentstyle=\color{green}\ttfamily,
+          breaklines=true,
+          }
+\lstdefinestyle{consol}
+   {basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+}
+\resetcounteronoverlays{lstnumber}
+
+\newcommand{\tabitem}{%
+  \usebeamertemplate{itemize item}\hspace*{\labelsep}}
+
+\usepackage{tikz}
+\usetikzlibrary{calc,shapes,arrows.meta}
+
+\eventtitle{Computer Science I}
+\title{Lecture 12\\Structures}
+\date{}
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{navigation symbols}[]
+
+\begin{document}
+
+\frame{
+    \titlepage
+}
+
+\section{Introduction}
+
+\begin{frame}[fragile]
+  \frametitle{Simple data types}
+  \framesubtitle{}  
+\centering
+
+\begin{itemize}
+  \item Up to now we used simple, built-in data types, such as int, double, etc.
+  \item Those could be grouped using static or dynamic arrays.
+  \item Example: Write a program simulating motion of a couple of "robots"
+  \begin{itemize}
+    \item Each robot has a name, position, instant velocity and acceleration
+    \item Each robot moves, according to its velocity
+    \item Our program will get rather messy for larger number of robots
+  \end{itemize}
+  \item If our program becomes larger it will become difficult to handle
+  \item Need a method to organize it better
+  \item We know how to separate functionality,
+  by dividing what program does in to different functions
+  \item Structures are used to group data in to larger constructs,
+  allowing a better overview of it
+\end{itemize}
+
+\end{frame}
+
+\section{Structure}
+
+\begin{frame}[fragile]
+  \frametitle{Structure}
+  \framesubtitle{User defined data type}  
+
+\textbf{Structure} is a user defined data type available in C that allows the programmer to combine data items of different kinds.
+
+\vspace{0.2cm}
+Syntax:\vspace{0.1cm}
+\begin{lstlisting}
+struct structure_name {
+   member_type member_mane;
+   member_type member_mane;
+   ...
+   member_type member_mane;
+} one or more structure variables;  
+\end{lstlisting}
+
+E.g.:\vspace{0.2cm}
+\begin{lstlisting}
+struct Robot {
+   char  name[50]; //String identifying the robot, its name
+   double x,y,vx,vy,ax,ay; //position, velocity, acceleration
+   ...
+} r1, r2; 
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Structure}
+  \framesubtitle{User defined data type}  
+
+Access to \textit{member} elements through '.', and $->$
+
+\vspace{0.2cm}
+Usage:\vspace{0.1cm}
+\begin{lstlisting}
+struct Robot {
+   char  name[50];
+   double x,y,vx,vy,ax,ay;
+   ...
+} r1, r2;
+
+int main(){
+  //r1 and r2 are allready defined and global
+  r1.x = 8.0;
+  
+  struct Robot r3;
+  
+  struct Robot *p = &r3;
+  p->y=5.0;
+}
+
+\end{lstlisting}
+
+Write an example, define objects of type Robot, and acces data through '.' and '$->$'
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Structure}
+  \framesubtitle{Use with functions}  
+
+  Structures can be passed to functions, by value (copy) and with a pointer.
+  \vspace{1cm}
+  
+  C language does not allow structures to 'posses' functions (in C++ this is allowed),
+  but we still can add a pointer to a function ...
+  \vspace{1cm}
+  
+  Write an example of a list data colloection using structures. What is a list?
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

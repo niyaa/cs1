@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <string.h>
+
+struct Robot{
+  char name[50];
+  double x, y;
+} r1;
+
+void PrintRobot()
+{
+  
+}
+
+int main(){
+  strcpy(r1.name, "Ala");
+  r1.x = 10;
+  r1.y=9;
+  
+  printf("%d\n", sizeof(struct Robot));
+}

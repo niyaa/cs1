@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+  int a = 5;
+  int * p =& a ;
+  int ** pp =& p ; // !!!
+  
+  printf ( " %d " , a ) ; // 5
+  printf ( " %d %p" , *p, p) ; // 5
+  printf ( " %d %p %p", *(* pp ), p, pp ) ; // 5
+  
+  printf ( " %d " , a ) ; // 5
+  printf ( " %d " , p[0]) ; // 5
+  printf ( " %d " , pp[0][0] ) ; // 5
+}

@@ -1,0 +1,143 @@
+\documentclass[10pt]{beamer}
+
+% \usepackage{define}
+\usepackage{animate}
+
+\usetheme{CCFD}
+\usepackage{color}
+\definecolor{gray97}{gray}{.90}
+\definecolor{gray75}{gray}{.75}
+\usepackage{listings}
+\lstset{frame=Ltb,
+     framerule=0pt,
+     aboveskip=0cm,
+     framextopmargin=0pt,
+     framexbottommargin=0pt,
+     framexleftmargin=0cm,
+     framesep=0pt,
+     rulesep=0pt,
+     backgroundcolor=\color{gray97},
+     rulesepcolor=\color{black},
+     language=C,
+           basicstyle=\ttfamily\scriptsize,
+           keywordstyle=\color{blue}\ttfamily,
+           stringstyle=\color{red}\ttfamily,
+           commentstyle=\color{green}\ttfamily,
+          breaklines=true,
+          }
+\lstdefinestyle{consol}
+   {basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+}
+\resetcounteronoverlays{lstnumber}
+
+\newcommand{\tabitem}{%
+  \usebeamertemplate{itemize item}\hspace*{\labelsep}}
+
+\usepackage{tikz}
+\usetikzlibrary{calc,shapes,arrows.meta}
+
+\eventtitle{Computer Science I}
+\title{Lecture 11\\Strings}
+\date{}
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{navigation symbols}[]
+
+\begin{document}
+
+\frame{
+    \titlepage
+}
+
+\section{Tests are coming}
+
+\begin{frame}[fragile]
+  \frametitle{Tests are coming}
+  \framesubtitle{16.01 and 23.01}  
+Know:
+\begin{itemize}
+  \item Everything from the first test
+  \item Pointers and addresses
+  \item Passing data to and from functions with pointers
+  \item Static and dynamically allocated 1 and 2D arrays
+  \item Arrays and functions
+  \item File I/O operations
+  \item Operations on strings
+  \item Structures (next lecture)
+\end{itemize}
+Have:
+  \begin{itemize}
+    \item A Pen
+    \item Student ID
+  \end{itemize}
+  \textbf{Do not} have:
+  \begin{itemize}
+    \item Notes
+    \item Any electronic devices
+  \end{itemize}
+
+\end{frame}
+
+\section{Operation on strings}
+
+\begin{frame}[fragile]
+  \frametitle{char, char* and char[]}
+  \framesubtitle{16.01 and 23.01}  
+\centering
+  \begin{itemize}
+    \item Write a program illustrating all the characters - some we shell not see
+    \item Find the special character, we will need it later
+    \item Write a program that uses an array of characters to store a word or a sentence
+    \item Store something in an array, try \%s to print the content
+    \item Use the special character, it is a termination sign
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{String is an array of char}
+  \framesubtitle{with a special, terminating character added at the end}  
+\centering
+  \begin{itemize}
+    \item Innitialize a string in a more convenient manner
+    \item How much space does a string occupies?
+    \item What is the last character?
+    \item Do I need to provide the size if an array is static?
+    \item What is a difference in using char[] and char*?
+    \item Why can't we reassign some strings?
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Reading strings from keybord}
+  \framesubtitle{scanf?}  
+\centering
+  \begin{itemize}
+    \item Write a program reading a string from a keyboard
+    \item Can we do better?
+    \item char *fgets (char *str, int size, FILE* file);
+    \item We can also read from file!
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Manipulating null terminating strings}
+  \framesubtitle{string.h}  
+\centering
+  \begin{itemize}
+    \item Comparison: int strcmp ( const char *s1, const char *s2 );
+    Returns 0 if s1 and s2 are the same; less than 0 if s1<s2; greater than 0 if s1>s2.
+    \item String concatenate: char *strcat ( char *dest, const char *src );
+    \item Copy: char *strcpy ( char *dest, const char *src );
+    \item Length of a string: int strlen ( const char *s );
+     \item char* strchr(s1, ch);
+     Returns a pointer to the first occurrence of character ch in string s1.
+   	\item char* strstr(s1, s2); Returns a pointer to the first occurrence of string s2 in string s1.
+  \end{itemize}
+
+\end{frame}
+
+\end{document}
