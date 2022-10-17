@@ -7,22 +7,28 @@
 \definecolor{gray97}{gray}{.90}
 \definecolor{gray75}{gray}{.75}
 \usepackage{listings}
-\lstset{frame=Ltb,
+\lstset{frame=Ltb, showspaces=false,showstringspaces=false,
      framerule=0pt,
      aboveskip=0cm,
      framextopmargin=0pt,
-     framexbottommargin=0pt,
-     framexleftmargin=0cm,
-     framesep=0pt,
-     rulesep=0pt,
+     framexbottommargin=1pt,
+     framexleftmargin=0.1cm,
+     framesep=1pt,
+     rulesep=.4pt,
      backgroundcolor=\color{gray97},
      rulesepcolor=\color{black},
-     language=C,
+     language=C++,
            basicstyle=\ttfamily\scriptsize,
            keywordstyle=\color{blue}\ttfamily,
            stringstyle=\color{red}\ttfamily,
-           commentstyle=\color{green}\ttfamily,
+           commentstyle=\color{teal}\ttfamily,
           breaklines=true,
+          %
+          numbers=left,
+          numberstyle=\tiny,
+          numbersep=6pt,
+%           numberfirstline = false,
+%           breaklines=true
           }
 \lstdefinestyle{consol}
    {basicstyle=\scriptsize\bf\ttfamily,
@@ -35,6 +41,14 @@
 
 \usepackage{tikz}
 \usetikzlibrary{calc,shapes}
+
+\eventtitle{Computer Science I}
+\title{Lecture 3}
+\subtitle{data types 2}
+\date{}
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{navigation symbols}[]
 
 \eventtitle{Computer Science I}
 \title{Lecture 3}
